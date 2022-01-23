@@ -1,0 +1,58 @@
+<div style="float: right">
+  <input type="button" value="Toggle Dark BG" (click)="toggleDarkBG()" />
+</div>
+
+<h1 [ngClass]="currentCSSClasses">This is a list of all available recipes</h1>
+
+<app-recipe-summary
+  *ngFor="let recipe of recipes"
+  [recipe]="recipe"
+  (zoomIn)="recipeZoomedIn(recipe)"
+></app-recipe-summary>
+
+<div style="clear: both"></div>
+
+<div class="new-recipe card" style="width: 600px">
+  <h4 class="card-header">Add new Recipe</h4>
+  <div class="card-body">
+    <input
+      type="text"
+      [(ngModel)]="recipeInProgress.title"
+      placeholder="Recipe Title"
+      name="title"
+      style="width: 400px"
+    /><textarea
+      name="description"
+      [(ngModel)]="recipeInProgress.description"
+      id=""
+      cols="30"
+      rows="5"
+      style="width: 400px"
+      placeholder="Description"
+    ></textarea>
+
+    <div>
+      <input
+        type="text"
+        [(ngModel)]="recipeInProgress.prepTime"
+        placeholder="Preparation Time"
+        name="prepTime"
+        style="width: 350px"
+      />
+      Minutes
+    </div>
+    <div>
+      <input
+        type="text"
+        placeholder="Feeds this many"
+        [(ngModel)]="recipeInProgress.feedsThisMany"
+        name="feedsThisMany"
+        style="width: 350px"
+      />
+      People
+    </div>
+    <div>
+      <input type="button" value="Add Recipe" (click)="addRecipeClicked()" />
+    </div>
+  </div>
+</div>
