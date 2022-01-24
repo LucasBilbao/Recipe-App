@@ -19,6 +19,10 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
         component: RecipeListComponent,
       },
       {
+        path: 'recipes/:recipe_id',
+        component: RecipeDetailsComponent,
+      },
+      {
         path: '',
         redirectTo: '/recipes',
         pathMatch: 'full',

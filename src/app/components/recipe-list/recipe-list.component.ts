@@ -1,5 +1,7 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Recipe } from 'src/app/models/recipe.model';
+import { myRecipes } from 'src/assets/myRecipes';
 
 @Component({
   selector: 'app-recipe-list',
@@ -13,18 +15,19 @@ export class RecipeListComponent {
     darkbg: false,
   };
 
-  recipes: Recipe[];
+  recipes: Recipe[] = [];
 
   constructor() {
     this.recipeInProgress = Recipe.createBlank();
 
-    this.recipes = [];
+    myRecipes.forEach((recipe) => {
+      this.recipes.unshift(Recipe.recipeFromJSON(recipe));
+    });
   }
 
   addRecipeClicked(): void {
     this.recipes = [this.recipeInProgress, ...this.recipes];
     this.recipeInProgress = Recipe.createBlank();
-    // console.log(JSON.stringify(this.recipeInProgress, null, 2));
   }
 
   recipeZoomedIn(recipe: Recipe): void {
