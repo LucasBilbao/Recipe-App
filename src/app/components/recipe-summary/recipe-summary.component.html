@@ -1,0 +1,22 @@
+<div class="recipe card" (click)="userClickedRecipe()">
+  <h5 class="card-header">{{ recipe?.title }}</h5>
+  <div class="card-body">
+    <div class="cover-photo-holder">
+      <img
+        [src]="
+          recipe?.coverPhoto ? recipe?.coverPhoto : '../assets/emptyBowl.jpg'
+        "
+      />
+    </div>
+    <p>{{ recipe?.description }}</p>
+
+    <div style="float: left; font-weight: bold; width: 150px">
+      Preparation Time:
+    </div>
+    <div>{{ recipe?.prepTime }}</div>
+    <div style="float: left; font-weight: bold; width: 150px">
+      Feeds this many:
+    </div>
+    <div>{{ recipe?.feedsThisMany }}</div>
+  </div>
+</div>

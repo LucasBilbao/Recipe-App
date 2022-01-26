@@ -1,5 +1,6 @@
-import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Recipe } from 'src/app/models/recipe.model';
 import { myRecipes } from 'src/assets/myRecipes';
 
@@ -11,31 +12,21 @@ import { myRecipes } from 'src/assets/myRecipes';
 export class RecipeListComponent {
   recipeInProgress: Recipe;
 
-  currentCSSClasses = {
-    darkbg: false,
-  };
-
   recipes: Recipe[] = [];
 
-  constructor() {
-    this.recipeInProgress = Recipe.createBlank();
-
+  constructor(private router: Router) {
     myRecipes.forEach((recipe) => {
       this.recipes.unshift(Recipe.recipeFromJSON(recipe));
     });
+    this.recipeInProgress = Recipe.createBlank(this.recipes.length);
   }
 
   addRecipeClicked(): void {
     this.recipes = [this.recipeInProgress, ...this.recipes];
-    this.recipeInProgress = Recipe.createBlank();
+    this.recipeInProgress = Recipe.createBlank(this.recipes.length);
   }
 
-  recipeZoomedIn(recipe: Recipe): void {
-    console.log('The user clicked on the recipe: ');
-    console.log(JSON.stringify(recipe, null, 2));
-  }
-
-  toggleDarkBG(): void {
-    this.currentCSSClasses.darkbg = !this.currentCSSClasses.darkbg;
+  recipeClicked(recipe_id: any): void {
+    this.router.navigateByUrl(`/recipes/${recipe_id}`);
   }
 }

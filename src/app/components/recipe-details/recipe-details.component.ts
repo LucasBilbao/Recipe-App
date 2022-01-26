@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { Recipe } from '../../models/recipe.model';
 import { myRecipes } from 'src/assets/myRecipes';
 
@@ -13,7 +15,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   recipes: Recipe[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private location: Location) {}
   ngOnInit(): void {
     myRecipes.forEach((recipe) => {
       this.recipes.unshift(Recipe.recipeFromJSON(recipe));
@@ -30,5 +32,9 @@ export class RecipeDetailsComponent implements OnInit {
       if (recipe.id === recipe_id) return recipe;
     }
     return null;
+  }
+
+  goBackButtonClicked(): void {
+    this.location.back();
   }
 }

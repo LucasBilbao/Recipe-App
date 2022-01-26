@@ -1,27 +1,54 @@
-<div class="recipe card">
-  <h5 class="card-header">{{ recipe?.title }}</h5>
-  <div class="card-body">
-    <div class="cover-photo-holder">
-      <img
-        [src]="
-          recipe?.coverPhoto ? recipe?.coverPhoto : '../assets/emptyBowl.jpg'
-        "
+<p>
+  <button class="btn btn-primary" (click)="goBackButtonClicked()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-arrow-left"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
       />
-    </div>
-    <p>{{ recipe?.description }}</p>
+    </svg>
+  </button>
+</p>
 
-    <div style="float: left; font-weight: bold; width: 150px">
-      Preparation Time:
-    </div>
+<div class="recipe">
+  <h5>{{ recipe?.title }}</h5>
+  <div class="cover-photo-holder">
+    <img
+      [src]="
+        recipe?.coverPhoto ? recipe?.coverPhoto : '../assets/emptyBowl.jpg'
+      "
+    />
+  </div>
+  <p>{{ recipe?.description }}</p>
+
+  <div>
+    <div class="sub-title">Preparation Time:</div>
     <div>{{ recipe?.prepTime }}</div>
-    <div style="float: left; font-weight: bold; width: 150px">
-      Feeds this many:
-    </div>
+    <div class="sub-title">Feeds this many:</div>
     <div>{{ recipe?.feedsThisMany }}</div>
   </div>
 
-  <div style="font-size: 60%; color: blue; cursor: pointer; padding: 10px">
-    zoom
+  <div class="ingedients">
+    <h4>Ingredients</h4>
+    <ul>
+      <li class="ingredient" *ngFor="let ingredient of recipe?.ingredients">
+        {{ ingredient.ingredient }} &nbsp;
+        <span style="color: gray">({{ ingredient.measure }})</span>
+      </li>
+    </ul>
+  </div>
+  <div class="instructions">
+    <h4>Preparation Instruction</h4>
+    <ul>
+      <li class="instruction" *ngFor="let instruction of recipe?.instructions">
+        {{ instruction.instruction }}
+      </li>
+    </ul>
   </div>
 </div>
-<!-- (click)="fireZoomInEvent()" -->

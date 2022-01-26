@@ -9,6 +9,7 @@ export interface Instruction {
 }
 
 export class Recipe {
+  static stcID: number;
   constructor(
     public id: number,
     public title: string,
@@ -19,7 +20,9 @@ export class Recipe {
     public instructions: Instruction[],
     public coverPhoto: string,
     public keyword: string[]
-  ) {}
+  ) {
+    Recipe.stcID = this.id;
+  }
 
   public static recipeFromJSON(obj: any): Recipe {
     return new Recipe(
@@ -35,7 +38,7 @@ export class Recipe {
     );
   }
 
-  static createBlank(): Recipe {
-    return new Recipe(-1, '', '', 1, 1, [], [], '', []);
+  static createBlank(id: number): Recipe {
+    return new Recipe(id, '', '', 1, 1, [], [], '', []);
   }
 }

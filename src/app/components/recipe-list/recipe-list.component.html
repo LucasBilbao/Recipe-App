@@ -1,13 +1,9 @@
-<div style="float: right">
-  <input type="button" value="Toggle Dark BG" (click)="toggleDarkBG()" />
-</div>
-
-<h1 [ngClass]="currentCSSClasses">This is a list of all available recipes</h1>
+<h1>This is a list of all available recipes</h1>
 
 <app-recipe-summary
   *ngFor="let recipe of recipes"
   [recipe]="recipe"
-  (zoomIn)="recipeZoomedIn(recipe)"
+  (recipeClicked)="recipeClicked($event)"
 ></app-recipe-summary>
 
 <div style="clear: both"></div>
@@ -52,7 +48,7 @@
       People
     </div>
     <div>
-      <input type="button" value="Add Recipe" (click)="addRecipeClicked()" />
+      <button type="button" (click)="addRecipeClicked()">Add Recipe</button>
     </div>
   </div>
 </div>

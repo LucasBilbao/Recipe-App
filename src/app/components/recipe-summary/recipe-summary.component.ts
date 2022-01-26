@@ -9,13 +9,14 @@ import { Recipe } from 'src/app/models/recipe.model';
 export class RecipeSummaryComponent implements OnInit {
   @Input() recipe: Recipe | null = null;
 
-  @Output() zoomIn: EventEmitter<Recipe> = new EventEmitter();
+  @Output()
+  recipeClicked: EventEmitter<number> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  fireZoomInEvent() {
-    if (this.recipe) this.zoomIn.emit(this.recipe);
+  userClickedRecipe(): void {
+    this.recipeClicked.emit(this.recipe?.id);
   }
 }
