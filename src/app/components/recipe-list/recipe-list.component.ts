@@ -1,29 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Recipe } from 'src/app/models/recipe.model';
-import { myRecipes } from 'src/assets/myRecipes';
+import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss'],
 })
-export class RecipeListComponent {
-  recipeInProgress: Recipe;
-
+export class RecipeListComponent implements OnInit {
+  recipesLoaded: boolean = false;
   recipes: Recipe[] = [];
 
-  constructor(private router: Router) {
-    myRecipes.forEach((recipe) => {
-      this.recipes.unshift(Recipe.recipeFromJSON(recipe));
+  constructor(private router: Router, private recipe_service: RecipeService) {}
+
+  ngOnInit() {
+    this.recipe_service.getAllRecipes().subscribe((recipesPayload) => {
+      this.recipes = recipesPayload.data;
+      this.recipesLoaded = true;
+      console.log(recipesPayload.error);
     });
-    this.recipeInProgress = Recipe.createBlank(this.recipes.length);
   }
 
-  addRecipeClicked(): void {
-    this.recipes = [this.recipeInProgress, ...this.recipes];
-    this.recipeInProgress = Recipe.createBlank(this.recipes.length);
+  addNewRecipeClicked(): void {
+    this.router.navigateByUrl('editnewrecipe');
   }
 
   recipeClicked(recipe_id: any): void {
