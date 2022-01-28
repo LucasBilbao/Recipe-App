@@ -1,0 +1,173 @@
+<button class="button-40" role="button" (click)="goBackButtonClicked()">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    class="bi bi-arrow-left"
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+    />
+  </svg>
+</button>
+
+<div class="cover-photo-holder">
+  <img
+    src="{{
+      recipeInProgress.coverPhoto
+        ? recipeInProgress.coverPhoto
+        : '/assets/emptyBowl.jpg'
+    }}"
+  />
+</div>
+<div class="newrecipe card">
+  <h4 class="card-header">Add New Recipe</h4>
+  <form #recipeForm="ngForm">
+    <div class="card-body">
+      <div class="input-group">
+        <input
+          required
+          type="text"
+          class="form-control"
+          [(ngModel)]="recipeInProgress.title"
+          placeholder="Recipe Title"
+          name="title"
+        />
+      </div>
+      <div class="input-group">
+        <textarea
+          required
+          class="form-control"
+          [(ngModel)]="recipeInProgress.description"
+          rows="5"
+          placeholder="Description"
+          name="description"
+        ></textarea>
+      </div>
+      <div class="input-group">
+        <input
+          required
+          type="number"
+          min="1'"
+          class="form-control"
+          [(ngModel)]="recipeInProgress.prepTime"
+          placeholder="Preparation Time"
+          name="prepTime"
+        />
+        <div class="input-group-append">
+          <span class="input-group-text">Minutes</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <input
+          required
+          type="number"
+          min="1"
+          max="1000"
+          class="form-control"
+          [(ngModel)]="recipeInProgress.feedsThisMany"
+          placeholder="Feeds this Many"
+          name="feedsThisMany"
+        />
+        <div class="input-group-append">
+          <span class="input-group-text">People</span>
+        </div>
+      </div>
+
+      <label>Ingredients</label>
+      <div
+        class="ingredient"
+        *ngFor="let ingredient of recipeInProgress.ingredients; let i = index"
+      >
+        <div class="form-row row">
+          <div class="form-group col-md-5">
+            <input
+              required
+              type="text"
+              class="form-control"
+              [(ngModel)]="ingredient.ingredient"
+              placeholder="Ingredient"
+              name="ingredient_ingredient_{{ i }}"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <input
+              required
+              type="text"
+              class="form-control"
+              [(ngModel)]="ingredient.measure"
+              placeholder="Measure"
+              name="ingredient_measure_{{ i }}"
+            />
+          </div>
+          <div class="form-group col-md-2">
+            <input
+              type="button"
+              class="btn btn-secondary"
+              (click)="removeIngredientAtIndex(i)"
+              value="-"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="addIngredientPressed()"
+        >
+          Add
+        </button>
+      </div>
+
+      <label>Instructions</label>
+      <div
+        class="instruction"
+        *ngFor="let instruction of recipeInProgress.instructions; let i = index"
+      >
+        <div class="form-row row">
+          <div class="form-group col-md-8">
+            <input
+              required
+              type="text"
+              class="form-control"
+              [(ngModel)]="instruction.instruction"
+              placeholder="Instruction"
+              name="instruction_instruction={{ i }}"
+            />
+          </div>
+          <div class="form-group col-md-2">
+            <input
+              type="button"
+              class="btn btn-secondary"
+              (click)="removeInstructionAtIndex(i)"
+              value="-"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="addInstructionPressed()"
+        >
+          Add
+        </button>
+      </div>
+
+      <div class="add-form-button-holder input-group">
+        <input
+          type="button"
+          [disabled]="!recipeForm.valid"
+          class="btn btn-primary"
+          value="Add Recipe"
+          (click)="addRecipeClicked()"
+        />
+      </div>
+    </div>
+  </form>
+</div>
