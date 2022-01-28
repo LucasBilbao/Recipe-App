@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Recipe } from '../../models/recipe.model';
-import { myRecipes } from 'src/assets/myRecipes';
+import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -11,27 +11,28 @@ import { myRecipes } from 'src/assets/myRecipes';
   styleUrls: ['./recipe-details.component.scss'],
 })
 export class RecipeDetailsComponent implements OnInit {
+  recipeLoaded: boolean = false;
+  loadError: any | boolean | null = false;
+
   recipe: Recipe | null = null;
 
-  recipes: Recipe[] = [];
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private recipes_service: RecipeService
+  ) {}
 
-  constructor(private route: ActivatedRoute, private location: Location) {}
   ngOnInit(): void {
-    myRecipes.forEach((recipe) => {
-      this.recipes.unshift(Recipe.recipeFromJSON(recipe));
-    });
-
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.recipe = this.findRecipeByID(
-        parseInt(`${params.get('recipe_id')}`, 10)
-      );
+      const recipe_id: number = parseInt(`${params.get('recipe_id')}`, 10);
+      this.recipes_service
+        .getRecipeById(recipe_id)
+        ?.subscribe((recipePayload) => {
+          this.recipe = recipePayload.data;
+          this.recipeLoaded = true;
+          console.log(recipePayload.error);
+        });
     });
-  }
-  findRecipeByID(recipe_id: number): Recipe | null {
-    for (const recipe of this.recipes) {
-      if (recipe.id === recipe_id) return recipe;
-    }
-    return null;
   }
 
   goBackButtonClicked(): void {
