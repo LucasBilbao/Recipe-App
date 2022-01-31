@@ -1,13 +1,17 @@
-<button class="button-40" role="button" (click)="addNewRecipeClicked()">
-  Add New Recipe
-</button>
-
 <h1>This is a list of all available recipes</h1>
 
-<app-loader *ngIf="!recipesLoaded"></app-loader>
+<app-loader *ngIf="!recipesLoaded; else thrownError"></app-loader>
 
-<app-recipe-summary
-  *ngFor="let recipe of recipes"
-  [recipe]="recipe"
-  (recipeClicked)="recipeClicked($event)"
-></app-recipe-summary>
+<ng-template #thrownError>
+  <p style="color: red" *ngIf="isErrorLoaded(); else displaySummary">
+    There was and error while loading the recipes: {{ loadError }}
+  </p>
+</ng-template>
+
+<ng-template #displaySummary>
+  <app-recipe-summary
+    *ngFor="let recipe of recipes"
+    [recipe]="recipe"
+    (recipeClicked)="recipeClicked($event)"
+  ></app-recipe-summary>
+</ng-template>

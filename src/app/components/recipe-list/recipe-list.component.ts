@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ErrorInterface } from 'src/app/models/errorInterface.model';
 
 import { Recipe } from 'src/app/models/recipe.model';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -11,16 +12,22 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class RecipeListComponent implements OnInit {
   recipesLoaded: boolean = false;
+  loadError: ErrorInterface = { error: '', message: '' };
   recipes: Recipe[] = [];
 
   constructor(private router: Router, private recipe_service: RecipeService) {}
 
   ngOnInit() {
-    this.recipe_service.getAllRecipes().subscribe((recipesPayload) => {
-      this.recipes = recipesPayload.data;
-      this.recipesLoaded = true;
-      console.log(recipesPayload.error);
-    });
+    this.recipe_service.getAllRecipes().subscribe(
+      (recipesPayload) => {
+        this.recipes = recipesPayload.data;
+        this.recipesLoaded = true;
+      },
+      (error) => {
+        this.recipesLoaded = true;
+        this.loadError = error;
+      }
+    );
   }
 
   addNewRecipeClicked(): void {
@@ -29,5 +36,9 @@ export class RecipeListComponent implements OnInit {
 
   recipeClicked(recipe_id: any): void {
     this.router.navigateByUrl(`/recipes/${recipe_id}`);
+  }
+
+  isErrorLoaded() {
+    return this.loadError.error !== '';
   }
 }
