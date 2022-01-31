@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { ErrorInterface } from 'src/app/models/errorInterface.model';
 
 @Component({
   selector: 'app-recipe-details',
@@ -12,7 +13,7 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class RecipeDetailsComponent implements OnInit {
   recipeLoaded: boolean = false;
-  loadError: any | boolean | null = false;
+  loadError: ErrorInterface = { error: '', message: '' };
 
   recipe: Recipe | null = null;
 
@@ -25,17 +26,40 @@ export class RecipeDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const recipe_id: number = parseInt(`${params.get('recipe_id')}`, 10);
-      this.recipes_service
-        .getRecipeById(recipe_id)
-        ?.subscribe((recipePayload) => {
+      this.recipes_service.getRecipeById(recipe_id)?.subscribe(
+        (recipePayload) => {
           this.recipe = recipePayload.data;
           this.recipeLoaded = true;
-          console.log(recipePayload.error);
-        });
+        },
+        (error) => {
+          this.recipeLoaded = true;
+          this.loadError = error;
+        }
+      );
     });
   }
 
   goBackButtonClicked(): void {
     this.location.back();
+  }
+
+  isErrorLoaded(): boolean {
+    return this.loadError.error !== '';
+  }
+
+  coverImagePath(): string {
+    if (this.recipe?.coverPhoto) {
+      return `http://localhost:4200/images/${this.recipe.coverPhoto}`;
+    }
+
+    return '../../../assets/emptyBowl.jpg';
+  }
+
+  instructionPhotoPath(instructionIndex: number): string {
+    if (this.recipe?.instructions[instructionIndex].photo) {
+      return `http://localhost:4200/images/${this.recipe.instructions[instructionIndex].photo}`;
+    }
+
+    return '../../../assets/emptyBowl.jpg';
   }
 }

@@ -14,22 +14,18 @@
   </svg>
 </button>
 
-<app-loader *ngIf="!recipeLoaded; else recipeDetails"></app-loader>
+<app-loader *ngIf="!recipeLoaded; else thrownError"></app-loader>
 
-<ng-template #recipeDetails>
-  <p *ngIf="loadError" style="color: red">
-    There was a problem loading your recipe: {{ loadError?.error }}
+<ng-template #thrownError>
+  <p *ngIf="isErrorLoaded(); else recipeDetails" style="color: red">
+    There was a problem loading your recipe {{ loadError.error }}
   </p>
-  <div class="recipe" *ngIf="recipeLoaded">
+</ng-template>
+<ng-template #recipeDetails>
+  <div class="recipe" *ngIf="recipeLoaded && !isErrorLoaded()">
     <h1>{{ recipe?.title }}</h1>
     <div class="cover-photo-holder">
-      <img
-        src="{{
-          this.recipe?.coverPhoto
-            ? this.recipe?.coverPhoto
-            : '/assets/emptyBowl.jpg'
-        }}"
-      />
+      <img [src]="coverImagePath()" />
     </div>
     <p>{{ recipe?.description }}</p>
     <div>
@@ -52,9 +48,13 @@
       <h4>Preparation Instructions</h4>
       <ol>
         <li
+          *ngFor="let instruction of recipe?.instructions; let i = index"
           class="instruction"
-          *ngFor="let instruction of recipe?.instructions"
         >
+          <img
+            style="float: right; width: 80px; height: 80px; object-fit: cover"
+            [src]="instructionPhotoPath(i)"
+          />
           {{ instruction.instruction }}
         </li>
       </ol>

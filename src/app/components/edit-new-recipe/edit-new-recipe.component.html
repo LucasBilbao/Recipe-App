@@ -14,18 +14,16 @@
   </svg>
 </button>
 
-<div class="cover-photo-holder">
-  <img
-    src="{{
-      recipeInProgress.coverPhoto
-        ? recipeInProgress.coverPhoto
-        : '/assets/emptyBowl.jpg'
-    }}"
-  />
-</div>
-<div class="newrecipe card">
-  <h4 class="card-header">Add New Recipe</h4>
-  <form #recipeForm="ngForm">
+<form #recipeForm="ngForm">
+  <div class="cover-photo-holder">
+    <div>
+      <img [src]="coverPhotoForViewing" />
+    </div>
+    <input type="file" (change)="readURL($event)" />
+    
+  </div>
+  <div class="newrecipe card">
+    <h4 class="card-header">Add New Recipe</h4>
     <div class="card-body">
       <div class="input-group">
         <input
@@ -103,7 +101,7 @@
               name="ingredient_measure_{{ i }}"
             />
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-2 rmv">
             <input
               type="button"
               class="btn btn-secondary"
@@ -128,6 +126,10 @@
         class="instruction"
         *ngFor="let instruction of recipeInProgress.instructions; let i = index"
       >
+        <img
+          *ngIf="instructionPhotosForViewing[i]"
+          [src]="instructionPhotosForViewing[i]"
+        />
         <div class="form-row row">
           <div class="form-group col-md-8">
             <input
@@ -139,7 +141,8 @@
               name="instruction_instruction={{ i }}"
             />
           </div>
-          <div class="form-group col-md-2">
+          <input type="file" (change)="readInstURL(i, $event)" />
+          <div class="form-group col-md-2 rmv">
             <input
               type="button"
               class="btn btn-secondary"
@@ -169,5 +172,5 @@
         />
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>

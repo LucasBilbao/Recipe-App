@@ -12,12 +12,21 @@ import { Router } from '@angular/router';
 export class EditNewRecipeComponent implements OnInit {
   recipeInProgress: Recipe;
 
+  coverPhotoForViewing: any = '../../../assets/emptyBowl.jpg';
+  coverPhotoForUpload: File | null = null;
+
+  instructionPhotosForViewing: any[];
+  instructionPhotosForUpload: File[];
+
   constructor(
     private location: Location,
     private recipe_service: RecipeService,
     private router: Router
   ) {
     this.recipeInProgress = Recipe.createBlank();
+
+    this.instructionPhotosForViewing = [];
+    this.instructionPhotosForUpload = [];
   }
 
   ngOnInit(): void {}
@@ -50,15 +59,38 @@ export class EditNewRecipeComponent implements OnInit {
 
   addRecipeClicked(): void {
     this.recipe_service
-      .addRecipe(this.recipeInProgress)
-      .subscribe((recipePayload) => {
-        this.router.navigateByUrl(`recipes/${recipePayload.data.id}`);
+      .addRecipe(this.recipeInProgress, {
+        coverPhoto: this.coverPhotoForUpload,
+        instructionPhotos: this.instructionPhotosForUpload,
+      })
+      .subscribe((recipe: Recipe) => {
+        this.router.navigateByUrl(`recipes/${recipe.id}`);
       });
-    // this.recipe_service.addRecipe(this.recipeInProgress);
-    /**
-     * since recipeInProgress is an object it is passed by reference
-     * thus that variable's id has changed as well
-     */
-    // this.router.navigateByUrl(`/recipes/${this.recipeInProgress.id}`);
+  }
+
+  readURL(e: any): void {
+    if (e?.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (rdr) => {
+        this.coverPhotoForViewing = reader.result;
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
+      this.coverPhotoForUpload = e.target.files[0];
+    }
+  }
+
+  readInstURL(i: number, e: any): void {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (rdr) => {
+        this.instructionPhotosForViewing[i] = reader.result;
+      };
+      reader.readAsDataURL(e.target.files[0]);
+      this.instructionPhotosForUpload[i] = e.target.files[0];
+      console.log(this.instructionPhotosForUpload);
+    }
   }
 }

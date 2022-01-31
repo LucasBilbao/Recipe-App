@@ -19,4 +19,12 @@ export class RecipeSummaryComponent implements OnInit {
   userClickedRecipe(): void {
     this.recipeClicked.emit(this.recipe?.id);
   }
+
+  imagePath(): string {
+    if (this.recipe?.coverPhoto) {
+      return `http://localhost:4200/images/${this.recipe.coverPhoto}`;
+    }
+
+    return '../../../assets/emptyBowl.jpg';
+  }
 }
