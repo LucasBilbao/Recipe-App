@@ -26,8 +26,9 @@
     <h1>{{ recipe?.title }}</h1>
     <div class="cover-photo-holder">
       <img [src]="coverImagePath()" />
+      <div>{{ recipe?.dateAdded | date: "fullDate" }}</div>
     </div>
-    <p>{{ recipe?.description }}</p>
+    <p>{{ recipe?.description | noSwearing: "NO SWEARING" }}</p>
     <div>
       <div class="sub-title">Preparation Time:</div>
       <div>{{ recipe?.prepTime }}</div>
