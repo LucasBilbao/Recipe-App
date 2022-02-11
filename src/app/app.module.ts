@@ -11,6 +11,7 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
 import { EditNewRecipeComponent } from './components/edit-new-recipe/edit-new-recipe.component';
 import { RecipeService } from './services/recipe.service';
 import { LoaderComponent } from './components/loader/loader.component';
+import { SwearFilter } from './misc/swearing.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     RecipeDetailsComponent,
     EditNewRecipeComponent,
     LoaderComponent,
+    SwearFilter,
   ],
   imports: [
     BrowserModule,
