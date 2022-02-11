@@ -18,10 +18,11 @@ export class Recipe {
     public ingredients: Ingredient[],
     public instructions: Instruction[],
     public coverPhoto: string,
-    public keyword: string[]
+    public keyword: string[],
+    public dateAdded: string
   ) {}
 
-  public static recipeFromJSON(obj: any): Recipe {
+  public static  (obj: any): Recipe {
     return new Recipe(
       obj.id,
       obj.title,
@@ -31,12 +32,13 @@ export class Recipe {
       obj.ingredients,
       obj.instructions,
       obj.cover_photo,
-      obj.keywords
+      obj.keywords,
+      obj.dateAdded
     );
   }
 
   static createBlank(): Recipe {
-    return new Recipe(-1, '', '', 1, 1, [], [], '', []);
+    return new Recipe(-1, '', '', 1, 1, [], [], '', [], '');
   }
 }
 
