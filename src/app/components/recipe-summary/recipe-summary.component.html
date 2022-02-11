@@ -1,5 +1,5 @@
 <div class="recipe card" (click)="userClickedRecipe()">
-  <h5 class="card-header">{{ recipe?.title }}</h5>
+  <h5 class="card-header">{{ recipe?.title | titlecase }}</h5>
   <div class="card-body">
     <div class="cover-photo-holder">
       <img [src]="imagePath()" />
