@@ -1,0 +1,6 @@
+@use "../../../../globals.scss" as globals;
+
+main {
+  margin-top: globals.pxToRem(50);
+  margin-bottom: globals.pxToRem(75);
+}

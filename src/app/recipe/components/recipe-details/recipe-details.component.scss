@@ -1,0 +1,75 @@
+@use "../../../../globals.scss" as globals;
+
+article.center {
+  ra-menu {
+    float: right;
+  }
+
+  & > div {
+    display: flex;
+    gap: globals.pxToRem(30);
+    margin-top: globals.pxToRem(20);
+
+    @media screen and (max-width: 1120px) {
+      flex-direction: column;
+    }
+
+    img {
+      width: globals.pxToRem(600);
+      object-fit: cover;
+      border-radius: globals.pxToRem(15);
+      @media screen and (max-width: 1120px) {
+        width: 100%;
+      }
+    }
+
+    div {
+      header {
+        h2 {
+          @include globals.font(34, 40, 500);
+        }
+      }
+
+      main {
+        section {
+          margin-top: globals.pxToRem(30);
+          &.ingredients {
+            h3 {
+              @include globals.font(28, 34, 500);
+            }
+
+            ul {
+              margin-top: globals.pxToRem(20);
+              padding-left: globals.pxToRem(30);
+
+              li {
+                display: list-item;
+                list-style-position: outside;
+                list-style-type: disc;
+                @include globals.font(18, 24, 500);
+                & + li {
+                  margin-top: globals.pxToRem(10);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & > section {
+    margin-top: globals.pxToRem(30);
+    h3 {
+      @include globals.font(28, 34, 500);
+    }
+
+    p {
+      margin-top: globals.pxToRem(20);
+      @include globals.font(18, 24);
+      @media screen and (max-width: 420px) {
+        @include globals.fontSizing(16, 24);
+      }
+    }
+  }
+}

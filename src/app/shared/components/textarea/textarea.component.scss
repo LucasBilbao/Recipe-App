@@ -1,0 +1,13 @@
+@use "../../../../globals.scss" as globals;
+
+:host {
+  width: 100%;
+  mat-form-field {
+    width: 100%;
+    ::ng-deep {
+      textarea {
+        height: globals.pxToRem(220);
+      }
+    }
+  }
+}

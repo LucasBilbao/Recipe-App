@@ -1,0 +1,7 @@
+:host {
+  & > button {
+    mat-icon {
+      margin: 0;
+    }
+  }
+}

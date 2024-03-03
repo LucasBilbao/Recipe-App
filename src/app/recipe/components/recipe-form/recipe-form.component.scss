@@ -1,0 +1,34 @@
+@use "../../../../globals.scss" as globals;
+
+section.center {
+  max-width: globals.pxToRem(520);
+
+  form {
+    mat-divider {
+      margin: globals.pxToRem(20);
+    }
+
+    section {
+      ul {
+        li {
+          display: flex;
+          column-gap: globals.pxToRem(15);
+        }
+      }
+
+      & > button {
+        width: 100%;
+        mat-icon {
+          margin: 0;
+        }
+      }
+    }
+    & > button {
+      width: 100%;
+      margin-top: globals.pxToRem(30);
+      padding: globals.pxToRem(15) 0;
+
+      @include globals.fontSizing(18, 24);
+    }
+  }
+}

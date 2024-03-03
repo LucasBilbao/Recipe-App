@@ -1,0 +1,14 @@
+@use "../../../../globals.scss" as globals;
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: globals.pxToRem(20) globals.pxToRem(20);
+
+  h1 {
+    @media screen and (max-width: 360px) {
+      @include globals.font(24, 28, 700);
+    }
+  }
+}

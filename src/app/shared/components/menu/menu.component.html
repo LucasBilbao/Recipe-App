@@ -1,0 +1,14 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  #menuTrigger
+  (click)="prevent($event)"
+>
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item><mat-icon>edit</mat-icon> <span>Edit</span></button>
+  <button mat-menu-item>
+    <mat-icon>delete_forever</mat-icon><span>Delete</span>
+  </button>
+</mat-menu>

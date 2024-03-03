@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
-import { RecipesComponent } from './components/recipes/recipes.component';
 import { SharedModule } from '../shared/shared.module';
-import { TestComponent } from './components/test/test.component';
+import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
+import { RecipeFormComponent } from './components/recipe-form/recipe-form.component';
+import { RecipesListComponent } from './components/recipes-list/recipes-list.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { RecipeRoutingModule } from './recipe-routing.module';
 
 @NgModule({
-  declarations: [RecipesComponent, TestComponent],
-  imports: [SharedModule],
+  declarations: [
+    RecipesComponent,
+    RecipesListComponent,
+    RecipeFormComponent,
+    RecipeDetailsComponent,
+  ],
+  imports: [SharedModule, RecipeRoutingModule],
 })
 export class RecipeModule {}

@@ -1,4 +1,84 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./globals.scss" as globals;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  font-size: #{globals.$PX_SIZE}px;
+}
+
+textarea::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  width: globals.pxToRem(8);
+}
+
+html::-webkit-scrollbar {
+  width: 0.8vw;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(86, 90, 90, 0.205);
+  border-radius: globals.pxToRem(500);
+  cursor: pointer;
+  &:hover {
+    background: rgba(86, 90, 90, 0.473);
+  }
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background: #f3f2fa no-repeat;
+
+  &.no_scroll {
+    overflow-y: hidden;
+  }
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  li {
+    all: unset;
+  }
+}
+
+fieldset {
+  all: unset;
+  legend {
+    all: unset;
+  }
+}
+
+input {
+  all: unset;
+}
+
+.center {
+  width: 75%;
+  margin: auto;
+
+  @media screen and (max-width: 1350px) {
+    width: 92%;
+  }
+
+  @media screen and (max-width: 1070px) {
+    width: 85%;
+  }
+}

@@ -1,0 +1,17 @@
+<mat-card>
+  <img
+    src="https://i0.wp.com/www.drdavidludwig.com/wp-content/uploads/2017/01/1-RIS_6IbCLYv1X3bzYW1lmA.jpeg?fit=800%2C552&ssl=1"
+    alt=""
+    class="recipe__img"
+  />
+  <div>
+    <h3>{{ title }}</h3>
+    <p>{{ description | punctuation : 350 }}</p>
+  </div>
+  <section>
+    <ra-menu />
+    <button mat-icon-button>
+      <mat-icon color="warn">favorite</mat-icon>
+    </button>
+  </section>
+</mat-card>
